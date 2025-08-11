@@ -11,8 +11,8 @@ Whether you want to quickly document your hacking process or prepare a professio
 - **Interactive mode** – Answer prompts to build a Markdown write-up step by step  
 - **Pre-written template** – Generate a detailed, advanced CTF template with `--template`  
 - **Color-coded prompts** for better readability    
-- **Multi-line input support
-- **Markdown formatting
+- **Multi-line input support**
+- **Markdown formatting**
 
 
 ---
