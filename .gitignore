@@ -1,6 +1,28 @@
+# Python
 __pycache__/
 *.pyc
-*.egg-info/
-dist/
+*.pyo
+*.pyd
+.python-version
+
+# Environments
+.env
+.venv
+env/
+venv/
+
+# Build artifacts
 build/
+dist/
+*.egg-info/
+
+# Editors
+.idea/
+.vscode/
+
+# OS files
 .DS_Store
+Thumbs.db
+
+# Logs
+*.log
