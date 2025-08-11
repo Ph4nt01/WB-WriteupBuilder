@@ -93,106 +93,11 @@ wb -t -fn MyWriteup.md
 
 Below are **two** example sessions: one for the interactive flow and one for the template flow. This shows the prompts and sample user input.
 
-### 1) Interactive session (full transcript)
+### 1) Interactive session
 
-```bash
+![Demo](gifs/demo1.gif)
 
-$ wb
-
-In The Name of God
-
-Tips for a clean writeup:
-
-- Screenshot as you go through the CTF, then return here to build the writeup.
-
-- For multi-line sections, press Enter to add new lines, and type `END` on a new line to finish.
-
-- To insert an image: `![image](imagename.jpg)` — the image file must be in the same directory as the .md file.
-
-- Skipping: If you press Enter without typing anything, that question will be skipped.
-
-- Sections with no answers will not be written to the file.
-
-WritupBuilder --> Starting /
-(Press Enter to continue)
-
-[User presses Enter]
-
-# Challenge Overview
-
-Name of the challenge: ReverseMe
-
-Platform / Event: picoCTF
-
-Who are you (solver): alice
-
-Category of the challenge: Reverse Engineering
-
-Difficulty of the challenge: Medium
-
-Points for solving: 200
-
-Writing to file: reverseme-picoctf.md
-
-# Initial Info
-
-Paste the challenge description, any attached files, or screenshots here.
-
-(Type `END` on a new line to finish. Press ENTER immediately (empty first line) to skip this question.)
-
-> Small stripped binary that prints "Welcome"
-
-> Includes hidden function that checks a password
-
-> END
-
-# Initial Analysis
-
-What stood out during your first inspection? Mention suspicious URLs, strange files, unusual behavior, etc.
-
-(Type `END` on a new line to finish. Press ENTER immediately (empty first line) to skip this question.)
-
-> Binary is stripped; strings show "check_password"
-
-> Running it prints "Try harder"
-
-> END
-
-# Exploitation
-
-Describe the steps and tools/scripts used to exploit the challenge...
-
-(Type `END` on a new line to finish. Press ENTER immediately (empty first line) to skip this question.)
-
-> Used radare2 to locate main and the check_password function
-
-> Identified hardcoded comparison against a signature
-
-> Patched binary to bypass check and printed flag
-
-> END
-
-# Flag
-
-Enter The Flag: picoCTF{r3v3rs1ng_is_fun}
-
-# Takeaways
-
-List the commands, tricks, or concepts you learned...
-
-(Type `END` on a new line to finish. Press ENTER immediately (empty first line) to skip this question.)
-
-> Use radare2 `afl` to list functions, `s` to seek, `px @` to view bytes
-
-> Patched bytes with `wx` to flip the conditional jump
-
-> END
-
-Done. Saved reverseme-picoctf.md
-
-```
-
-**Notes about the transcript**
+**Notes**
 
 * Filenames are sanitized to lowercase and spaces/special characters are replaced with underscores.
 
@@ -202,20 +107,8 @@ Done. Saved reverseme-picoctf.md
 
 ### 2) Template mode (quick)
 
-```bash
+![Demo](gifs/demo.gif)
 
-$ wb -t -fn MyWriteup.md
-
-In The Name of God
-
-WritupBuilder -> Writing the Advanced Writeup Template to MyWriteup.md /
-(Press Enter to continue)
-
-[User presses Enter]
-
-Template saved as MyWriteup.md
-
-```
 ---
 
 ## 📂 Output Example
@@ -272,6 +165,9 @@ pip install -e .
 
 ```
 WB-WriteupBuilder/
+├── gifs/
+│   ├── demo.gif
+│   └── demo1.gif
 ├── wb/
 │   ├── __init__.py
 │   └── cli.py
