@@ -192,59 +192,6 @@ def add_section(md, heading, content, inline_template=False):
 
 # ─────────────────────────────────────────────
 # Main writeup builder
-# def writeup_builder():
-#     print(f"{Fore.CYAN}Tips for a clean writeup:")
-#     print(f"\n{bg.BLACK}{Fore.WHITE}- Screenshot as you go through the CTF for building a better writeup.")
-#     print(f"{bg.BLACK}{Fore.WHITE}- For multi-line sections, press Enter to add new lines, and type `END` on a new line to finish.")
-#     print(f"{bg.BLACK}{Fore.WHITE}- To insert an image: `![image](path/to/image.jpg)`")
-#     print(f"{bg.BLACK}{Fore.WHITE}- Skipping: If you press Enter without typing anything, that question will be skipped.")
-#     print(f"{bg.BLACK}{Fore.WHITE}- Sections with no answers will not be written to the file.{Style.RESET_ALL}\n")
-
-#     spinner_until_enter(f"{bg.BLACK}{Fore.GREEN}WriteupBuilder -> Starting")
-
-#     print()
-
-#     print("# Challenge Overview")
-#     challenge_name = prompt_normal("Name of the challenge", required=True)
-#     platform = prompt_normal("Platform / Event", required=True)
-#     solver = prompt_normal("Who are you (solver)", required=False)
-#     category = prompt_normal("Category of the challenge", required=False)
-#     difficulty = prompt_normal("Difficulty of the challenge", required=False)
-#     points = prompt_normal("Points for solving", required=False)
-
-#     date_str = today_date_str()
-#     filename = f"{sanitize_filename(challenge_name)}.md"
-#     print(f"\n{bg.BLACK}{Fore.WHITE}Writing to file: {filename}{Style.RESET_ALL}\n")
-
-#     md = build_overview_md(challenge_name, platform, date_str, solver, category, difficulty, points)
-
-#     print("# Initial Info")
-#     initial_info = prompt_multiline("Paste the challenge description, any attached files, or screenshots here.")
-#     md = add_section(md, "# 📋 Initial Info:", initial_info)
-
-#     print("# Initial Analysis")
-#     initial_analysis = prompt_multiline("What stood out during your first inspection? Mention suspicious URLs, strange files, unusual behavior, etc.")
-#     md = add_section(md, "# 🔍 Initial Analysis:", initial_analysis)
-
-#     print("# Exploitation")
-#     exploitation = prompt_multiline("Describe the steps and tools/scripts used to exploit the challenge, Explain how each tool worked and how it helped you get the flag.")
-#     md = add_section(md, "# ⚙️ Exploitation", exploitation)
-
-#     print("# Flag")
-#     flag = prompt_normal("Enter The Flag", required=False)
-#     md = add_section(md, "#  🚩 Flag ->", flag, inline_template=True)
-#     print("\n")
-#     print("# Takeaways")
-#     takeaways = prompt_multiline("List the commands, tricks, or concepts you learned from this challenge.")
-#     md = add_section(md, "#  📚 Takeaways", takeaways)
-
-#     md = md.rstrip() + "\n"
-#     with open(filename, "w", encoding="utf-8") as f:
-#         f.write(md)
-
-#     print(Fore.WHITE + f"Done. Saved {filename}" + Style.RESET_ALL)
-
-
 def writeup_builder():
     print(f"{Fore.CYAN}Tips for a clean writeup:")
     print(f"\n{bg.BLACK}{Fore.WHITE}- Screenshot as you go through the CTF for building a better writeup.")
