@@ -78,6 +78,76 @@ def prompt_normal(prompt_text: str, required: bool = False) -> str | None:
         return None
 
 def prompt_multiline(prompt_text: str) -> str | None:
+    try:
+        from prompt_toolkit import prompt
+        from prompt_toolkit.key_binding import KeyBindings
+        from prompt_toolkit.styles import Style as PromptStyle
+    except ImportError:
+        print(Fore.RED + "Error: prompt_toolkit is required for enhanced multi-line input. Install with: pip install prompt_toolkit" + Style.RESET_ALL)
+        print(Fore.YELLOW + "Falling back to basic input mode..." + Style.RESET_ALL)
+        return prompt_multiline_fallback(prompt_text)
+    
+    # Print instructions
+    print(Fore.WHITE + prompt_text + Style.RESET_ALL)
+    print(Fore.CYAN + "Instructions:")
+    print(Fore.CYAN + "- Use arrow keys to navigate (↑↓←→)")
+    print(Fore.CYAN + "- Press Ctrl+D to finish and accept")
+    print(Fore.CYAN + "- Press Ctrl+C or Esc to cancel")
+    print(Fore.CYAN + "- To skip, leave input empty and press Ctrl+D")
+    print(Style.RESET_ALL)
+    
+    # Create key bindings
+    kb = KeyBindings()
+
+    @kb.add('c-d')  # Ctrl+D to accept
+    def _(event):
+        event.app.exit(result=event.app.current_buffer.text)
+
+    @kb.add('c-c')  # Ctrl+C to cancel
+    def _(event):
+        event.app.exit(result=None)
+
+    @kb.add('escape')  # Esc to cancel
+    def _(event):
+        event.app.exit(result=None)
+
+    # Style for the prompt
+    style = PromptStyle.from_dict({
+        'prompt': 'ansicyan',
+    })
+
+    try:
+        # Get multi-line input with full navigation
+        text = prompt(
+            message='> ',
+            multiline=True,
+            key_bindings=kb,
+            style=style,
+            wrap_lines=True,
+        )
+    except KeyboardInterrupt:
+        return None
+    except Exception as e:
+        print(f"Error during input: {e}")
+        return None
+
+
+    # If text is None, user canceled
+    if text is None:
+        return None
+
+    # Process the text
+    text = text.rstrip()  # Remove trailing whitespace
+    
+    # If the text is empty, return None (skip)
+    if not text:
+        return None
+        
+        
+    return text
+
+def prompt_multiline_fallback(prompt_text: str) -> str | None:
+    """Fallback method if prompt_toolkit is not available"""
     print(Fore.WHITE + prompt_text + Style.RESET_ALL)
     print(Fore.CYAN + "(Type `END` on a new line to finish. Press ENTER immediately (empty first line) to skip this question.)" + Style.RESET_ALL)
     first = input()
@@ -93,8 +163,7 @@ def prompt_multiline(prompt_text: str) -> str | None:
         lines.append(line)
     content = "\n".join(lines).rstrip()
     return content if content else None
-
-# ─────────────────────────────────────────────
+#─────────────────────────────────────────────
 # Markdown builders
 def build_overview_md(challenge_name, platform, date_str, solver, category, difficulty, points):
     md = "#  📌 Challenge Overview\n\n"
@@ -123,18 +192,68 @@ def add_section(md, heading, content, inline_template=False):
 
 # ─────────────────────────────────────────────
 # Main writeup builder
+# def writeup_builder():
+#     print(f"{Fore.CYAN}Tips for a clean writeup:")
+#     print(f"\n{bg.BLACK}{Fore.WHITE}- Screenshot as you go through the CTF for building a better writeup.")
+#     print(f"{bg.BLACK}{Fore.WHITE}- For multi-line sections, press Enter to add new lines, and type `END` on a new line to finish.")
+#     print(f"{bg.BLACK}{Fore.WHITE}- To insert an image: `![image](path/to/image.jpg)`")
+#     print(f"{bg.BLACK}{Fore.WHITE}- Skipping: If you press Enter without typing anything, that question will be skipped.")
+#     print(f"{bg.BLACK}{Fore.WHITE}- Sections with no answers will not be written to the file.{Style.RESET_ALL}\n")
+
+#     spinner_until_enter(f"{bg.BLACK}{Fore.GREEN}WriteupBuilder -> Starting")
+
+#     print()
+
+#     print("# Challenge Overview")
+#     challenge_name = prompt_normal("Name of the challenge", required=True)
+#     platform = prompt_normal("Platform / Event", required=True)
+#     solver = prompt_normal("Who are you (solver)", required=False)
+#     category = prompt_normal("Category of the challenge", required=False)
+#     difficulty = prompt_normal("Difficulty of the challenge", required=False)
+#     points = prompt_normal("Points for solving", required=False)
+
+#     date_str = today_date_str()
+#     filename = f"{sanitize_filename(challenge_name)}.md"
+#     print(f"\n{bg.BLACK}{Fore.WHITE}Writing to file: {filename}{Style.RESET_ALL}\n")
+
+#     md = build_overview_md(challenge_name, platform, date_str, solver, category, difficulty, points)
+
+#     print("# Initial Info")
+#     initial_info = prompt_multiline("Paste the challenge description, any attached files, or screenshots here.")
+#     md = add_section(md, "# 📋 Initial Info:", initial_info)
+
+#     print("# Initial Analysis")
+#     initial_analysis = prompt_multiline("What stood out during your first inspection? Mention suspicious URLs, strange files, unusual behavior, etc.")
+#     md = add_section(md, "# 🔍 Initial Analysis:", initial_analysis)
+
+#     print("# Exploitation")
+#     exploitation = prompt_multiline("Describe the steps and tools/scripts used to exploit the challenge, Explain how each tool worked and how it helped you get the flag.")
+#     md = add_section(md, "# ⚙️ Exploitation", exploitation)
+
+#     print("# Flag")
+#     flag = prompt_normal("Enter The Flag", required=False)
+#     md = add_section(md, "#  🚩 Flag ->", flag, inline_template=True)
+#     print("\n")
+#     print("# Takeaways")
+#     takeaways = prompt_multiline("List the commands, tricks, or concepts you learned from this challenge.")
+#     md = add_section(md, "#  📚 Takeaways", takeaways)
+
+#     md = md.rstrip() + "\n"
+#     with open(filename, "w", encoding="utf-8") as f:
+#         f.write(md)
+
+#     print(Fore.WHITE + f"Done. Saved {filename}" + Style.RESET_ALL)
+
+
 def writeup_builder():
     print(f"{Fore.CYAN}Tips for a clean writeup:")
-    print(f"\n{bg.BLACK}{Fore.WHITE}- Screenshot as you go through the CTF, then return here to build the writeup.")
+    print(f"\n{bg.BLACK}{Fore.WHITE}- Screenshot as you go through the CTF for building a better writeup.")
     print(f"{bg.BLACK}{Fore.WHITE}- For multi-line sections, press Enter to add new lines, and type `END` on a new line to finish.")
-    print(f"{bg.BLACK}{Fore.WHITE}- To insert an image: `![image](imagename.jpg)` — the image file must be in the same directory as the .md file.")
+    print(f"{bg.BLACK}{Fore.WHITE}- To insert an image: `![image](path/to/image.jpg)`")
     print(f"{bg.BLACK}{Fore.WHITE}- Skipping: If you press Enter without typing anything, that question will be skipped.")
     print(f"{bg.BLACK}{Fore.WHITE}- Sections with no answers will not be written to the file.{Style.RESET_ALL}\n")
-
     spinner_until_enter(f"{bg.BLACK}{Fore.GREEN}WriteupBuilder -> Starting")
-
     print()
-
     print("# Challenge Overview")
     challenge_name = prompt_normal("Name of the challenge", required=True)
     platform = prompt_normal("Platform / Event", required=True)
@@ -142,38 +261,38 @@ def writeup_builder():
     category = prompt_normal("Category of the challenge", required=False)
     difficulty = prompt_normal("Difficulty of the challenge", required=False)
     points = prompt_normal("Points for solving", required=False)
-
     date_str = today_date_str()
-    filename = f"{sanitize_filename(challenge_name)}-{sanitize_filename(platform)}.md"
+    filename = f"{sanitize_filename(challenge_name)}.md"
     print(f"\n{bg.BLACK}{Fore.WHITE}Writing to file: {filename}{Style.RESET_ALL}\n")
-
     md = build_overview_md(challenge_name, platform, date_str, solver, category, difficulty, points)
-
+    
     print("# Initial Info")
     initial_info = prompt_multiline("Paste the challenge description, any attached files, or screenshots here.")
     md = add_section(md, "# 📋 Initial Info:", initial_info)
-
+    
     print("# Initial Analysis")
     initial_analysis = prompt_multiline("What stood out during your first inspection? Mention suspicious URLs, strange files, unusual behavior, etc.")
     md = add_section(md, "# 🔍 Initial Analysis:", initial_analysis)
-
+    
     print("# Exploitation")
     exploitation = prompt_multiline("Describe the steps and tools/scripts used to exploit the challenge, Explain how each tool worked and how it helped you get the flag.")
     md = add_section(md, "# ⚙️ Exploitation", exploitation)
-
+    
     print("# Flag")
     flag = prompt_normal("Enter The Flag", required=False)
     md = add_section(md, "#  🚩 Flag ->", flag, inline_template=True)
+    
     print("\n")
     print("# Takeaways")
     takeaways = prompt_multiline("List the commands, tricks, or concepts you learned from this challenge.")
     md = add_section(md, "#  📚 Takeaways", takeaways)
-
+    
     md = md.rstrip() + "\n"
     with open(filename, "w", encoding="utf-8") as f:
         f.write(md)
-
     print(Fore.WHITE + f"Done. Saved {filename}" + Style.RESET_ALL)
+
+
 
 # ─────────────────────────────────────────────
 # Template builder
