@@ -155,8 +155,8 @@ Things learned...
 Clone the repo:
 
 ```bash
-git clone https://github.com/yourusername/writeupbuilder.git
-cd writeupbuilder
+git clone https://github.com/Ph4nt01/WB-WriteupBuilder.git
+cd WB-WriteupBuilder
 pip install -e .
 ```
 
