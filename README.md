@@ -119,7 +119,7 @@ Below are **two** example sessions: one for the interactive flow and one for the
 ```markdown
 # 📌 Challenge Overview
 
-| 🧩 Platform / Event | picoCTF/Packer |
+| 🧩 Platform & Name | picoCTF/Packer |
 | ------------------- | -------- |
 | 📅 Date             | 2025-08-11 |
 | 🔰 Category         | Reverse Engineering |
