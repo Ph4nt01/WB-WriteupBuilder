@@ -452,7 +452,380 @@ def template_builder(args):
     spinner_until_enter(f"{bg.BLACK}{Fore.GREEN} WriteupBuilder -> Writing the Advanced Writeup Template to {args.filename}")
     print()
 
-    md = """example ready template"""
+    md = """# 1- Initial Reconnaissance
+
+## Port Scanning  
+We start with a full nmap scan to identify exposed services:  
+# Quick initial scan
+nmap -sS -O -sV -sC -p- --min-rate=1000 -oN initial_scan.txt
+
+# Detailed scan of open ports  
+nmap -sV -sC -A -p -oN detailed_scan.txt
+
+# UDP scan (top ports)  
+sudo nmap -sU --top-ports 1000 -oN udp_scan.txt
+
+## Service Enumeration  
+| Port | Service | Version | Notes |  
+|------|---------|---------|-------|  
+| 22 | SSH | OpenSSH 7.4 | Banner grabbing |  
+| 80 | HTTP | Apache 2.4.6 | Web server |  
+| 443 | HTTPS | Apache 2.4.6 | SSL/TLS enabled |
+
+## Web Reconnaissance (if applicable)  
+# Discover technologies  
+whatweb
+
+# Directory enumeration  
+feroxbuster -u http:// -w /usr/share/wordlists/dirb/common.txt
+
+# Alternative: Gobuster  
+gobuster dir -u http:// -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt
+
+Tools used: nmap, feroxbuster, gobuster, whatweb, nikto
+
+
+# 2- Web Enumeration
+
+## Initial Analysis  
+- Detected technology: [Apache/Nginx/IIS version]  
+- CMS/Framework: [WordPress/Drupal/Custom/etc]  
+- Backend language: [PHP/Python/Node.js/etc]
+
+## Directory Discovery  
+# Main directories found  
+feroxbuster -u http:// -w /usr/share/wordlists/dirb/common.txt -x php,html,txt,js
+
+# Subdomains (if applicable)  
+gobuster vhost -u -w /usr/share/wordlists/subdomains-top1million-5000.txt
+
+### Interesting Directories:  
+- /admin - Admin panel  
+- /login - Login form  
+- /uploads - Uploads directory  
+- /config - Config files
+
+## Vulnerability Analysis  
+# Nikto scan  
+nikto -h http://
+
+# Burp Suite  
+# - Set proxy to 127.0.0.1:8080  
+# - Intercept and analyze requests/responses  
+# - Look for vulnerable parameters
+
+## Identified Attack Vectors  
+- [ ] SQL Injection in login parameters  
+- [ ] XSS Stored/Reflected  
+- [ ] LFI/RFI in file inclusion  
+- [ ] File Upload vulnerabilities  
+- [ ] CSRF in critical forms  
+- [ ] Directory Traversal
+
+Tools: Burp Suite, Nikto, OWASP ZAP, SQLmap, XSSer
+
+
+# 3- Exploitation
+
+## Main Attack Vector  
+Vulnerability exploited: [SQL Injection / RCE / File Upload / etc]  
+Severity: [Critical/High/Medium/Low]  
+CVE: [If applicable]
+
+## Exploitation Steps
+
+### 1. Vulnerability Identification  
+[Describe how the vulnerability was found]
+
+### 2. Exploit Development  
+#!/usr/bin/env python3  
+# Exploit for [VULNERABILITY]  
+import requests  
+import sys
+
+target_url = 'http:///vulnerable_endpoint'  
+payload =
+
+def exploit():  
+try:  
+response = requests.post(target_url, data=payload)  
+if 'success_indicator' in response.text:  
+print('[+] Exploit successful!')  
+print('[+] Response:', response.text)  
+else:  
+print('[-] Exploit failed')  
+except Exception as e:  
+print('[-] Error:', e)
+
+if __name__ == '__main__':  
+exploit()
+
+### 3. Exploit Execution  
+# Run exploit  
+python3 exploit.py
+
+# Set up reverse shell (example)  
+nc -lvnp 4444 # Listener  
+# Payload triggers reverse connection
+
+## Initial Access Obtained  
+- User: [www-data / apache / user]  
+- Shell type: [bash/sh/cmd]  
+- Initial directory: [/var/www/html / /home/user]
+
+## Immediate Post-Exploitation  
+# System info  
+uname -a  
+id  
+whoami  
+pwd
+
+# Interesting files  
+find / -name '*.txt' -type f 2>/dev/null | head -20  
+find / -perm -4000 -type f 2>/dev/null # SUID binaries
+
+
+
+
+# 4- Privilege Escalation
+
+## System Enumeration  
+# Basic system info  
+uname -a  
+cat /etc/os-release  
+id  
+sudo -l
+
+# Running processes  
+ps aux | grep root  
+ps aux --forest
+
+# Internal services and ports  
+netstat -tulpn  
+ss -tulpn
+
+## Automated Enumeration Tools  
+# LinPEAS (recommended)  
+curl -L https://github.com/carlospolop/PEASS-ng/releases/latest/download/linpeas.sh | sh
+
+# LinEnum  
+./LinEnum.sh
+
+# Linux Exploit Suggester  
+./linux-exploit-suggester.sh
+
+## Analyzed Escalation Vectors
+
+### 1. SUID/SGID Binaries  
+find / -perm -4000 -type f 2>/dev/null  
+find / -perm -2000 -type f 2>/dev/null
+
+# Interesting binaries found:  
+# - /usr/bin/[binary_name]  
+# - Check GTFOBins for exploitation
+
+### 2. Sudo Misconfigurations  
+sudo -l  
+# Commands executable as root without password
+
+### 3. Cron Jobs  
+cat /etc/crontab  
+ls -la /etc/cron.*  
+crontab -l
+
+### 4. Kernel Exploits  
+# Kernel version  
+uname -r
+
+# Applicable exploits:  
+# - CVE-XXXX-XXXX: [Description]  
+# - Available at: [Exploit URL]
+
+## Successful Escalation  
+Method used: [SUID binary / Sudo misconfiguration / Kernel exploit / etc]
+
+# Command/script used to escalate  
+[command or specific script]
+
+# Root verification  
+id  
+whoami  
+cat /root/root.txt
+
+Root obtained: ✅
+
+
+
+
+
+# 5- User Flag
+
+## Flag Location  
+File: /home/[username]/user.txt  
+Owner user: [username]
+
+## Steps to Obtain the Flag  
+# Navigate to user directory  
+cd /home/[username]
+
+# Read the flag  
+cat user.txt
+
+## User Flag  
+[USER_FLAG_HERE]
+
+## Additional Notes  
+- The flag was found after [initial shell / partial escalation]  
+- File permissions: [ls -la user.txt]  
+- Verification hash (if applicable): [md5sum user.txt]
+
+## Screenshot  
+[Screenshot showing flag acquisition]
+
+
+
+
+# 6- Root Flag
+
+## Flag Location  
+File: /root/root.txt  
+Owner user: root  
+Permissions: 600 (rw-------)
+
+## Steps to Obtain the Flag  
+# Verify root access  
+id  
+whoami
+
+# Access root directory  
+cd /root
+
+# Read the root flag  
+cat root.txt
+
+## Root Flag  
+[ROOT_FLAG_HERE]
+
+## Full Compromise Verification  
+# Verify full system access  
+cat /etc/shadow | head -5  
+ls -la /root/  
+history
+
+## Compromised System Info  
+- Hostname: [hostname]  
+- Kernel: [uname -r]  
+- Distribution: [cat /etc/os-release]  
+- Uptime: [uptime]
+
+## Screenshot  
+[Screenshot showing root flag acquisition]
+
+---  
+🎉 System fully compromised - Root obtained
+
+
+
+
+# 7- Main Vulnerability
+
+## Question  
+What was the main vulnerability exploited to gain initial access to the system?
+
+## Answer  
+Vulnerability: [Specific vulnerability name]
+
+### Technical Details  
+- Type: [SQL Injection / RCE / File Upload / Buffer Overflow / etc]  
+- Affected component: [Web app / Service / etc]  
+- Vulnerable version: [Specific software version]  
+- CVE (if applicable): CVE-XXXX-XXXX  
+- CVSS Score: [Score if available]
+
+### Vulnerability Description  
+[Detailed explanation of what the vulnerability does and why it is exploitable]
+
+### Impact  
+- Confidentiality: [High/Medium/Low]  
+- Integrity: [High/Medium/Low]  
+- Availability: [High/Medium/Low]
+
+### Attack Vector  
+1. [Step 1 of the attack]  
+2. [Step 2 of the attack]  
+3. [Step 3 of the attack]
+
+### Recommended Mitigation  
+- [Mitigation step 1]  
+- [Mitigation step 2]  
+- [Mitigation step 3]
+
+### References  
+- [CVE URL if applicable]  
+- [Public exploit URL if used]  
+- [Additional documentation]
+
+
+
+
+
+
+# 8- Lessons Learned
+
+## CTF Reflections
+
+### 🎯 Key Points  
+- [Lesson 1]: [Description of what was learned]  
+- [Lesson 2]: [Description of what was learned]  
+- [Lesson 3]: [Description of what was learned]
+
+### 💡 Important Techniques  
+- Enumeration: [What worked well in recon phase]  
+- Exploitation: [Key technique or tool]  
+- Escalation: [Method that led to root]
+
+### 🔧 Highlighted Tools  
+| Tool | Use | Effectiveness |  
+|------|-----|--------------|  
+| [Tool 1] | [Purpose] | ⭐⭐⭐⭐⭐ |  
+| [Tool 2] | [Purpose] | ⭐⭐⭐⭐ |  
+| [Tool 3] | [Purpose] | ⭐⭐⭐ |
+
+### ⚠️ Mistakes Made  
+- [Mistake 1]: [What went wrong and how to avoid it]  
+- [Mistake 2]: [What went wrong and how to avoid it]
+
+### 📚 New Knowledge  
+- [New concept learned 1]  
+- [New concept learned 2]  
+- [New command/technique discovered]
+
+### 🚀 For Future CTFs  
+- [ ] Remember to check [specific file/directory]  
+- [ ] Always try [specific technique] in [context]  
+- [ ] Never forget to enumerate [specific service/port]  
+- [ ] Research more about [technology/concept]
+
+### 📖 Useful Resources  
+- [Useful documentation URL]  
+- [Helpful blog post]  
+- [Effective tool or wordlist]
+
+### 🏆 Perceived Difficulty  
+Personal rating: [1-10]/10
+
+Total time: [X hours]
+
+Most challenging aspects:  
+1. [Challenge 1]  
+2. [Challenge 2]
+
+---  
+Additional notes:  
+[Any final observation or important reminder]
+
+
+    """
     _RUNTIME["filename"] = args.filename
     _RUNTIME["md"] = md
     _flush_runtime()
