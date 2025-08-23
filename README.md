@@ -1,21 +1,22 @@
-# WB-WriteupBuilder
+# 📝 WB-WriteupBuilder
 
-**WriteupBuilder** is a command-line tool for creating clean, organized CTF write-ups in Markdown — interactively or using a ready-to-fill advanced template.
+[![PyPI](https://img.shields.io/pypi/v/wb-writeupbuilder?color=blue&label=pypi)](https://pypi.org/project/wb-writeupbuilder/)
+[![License](https://img.shields.io/github/license/Ph4nt01/WB-WriteupBuilder?color=green)](LICENSE)
+[![Stars](https://img.shields.io/github/stars/Ph4nt01/WB-WriteupBuilder?style=social)](https://github.com/Ph4nt01/WB-WriteupBuilder/stargazers)
 
-Whether you want to quickly document your hacking process or prepare a professional post-CTF report, `wb` guides you through each section and saves your work in a well-structured `.md` file.
+**WB-WriteupBuilder** is a command-line tool for creating clean, organized **CTF write-ups in Markdown** — either interactively or via a ready-to-fill advanced template.
+
+Whether you’re documenting your hacking process during a live competition or preparing a professional post-CTF report, `wb` guides you through each section, **autosaves progress**, and even lets you **resume later**.
 
 ---
 
 ## ✨ Features
 
-- **Interactive mode** – Answer prompts to build a Markdown write-up step by step  
-- **Pre-written template** – Generate a detailed, advanced CTF template with `--template`  
-- **Color-coded prompts** for better readability    
-- **Multi-line input support**
-- **Markdown formatting**
-- **Creates the .md file even if the tool was exited in the middle of doing its thing**
-- **--resomefile flag** for contniuing from an incompelete .md file
-
+- **Interactive mode** – guided prompts for each write-up section  
+- **Resume mode (`--resumefile`)** – pick up exactly where you left off, even after closing the terminal  
+- **Pre-written advanced template** – generate a detailed template with `--template`  
+- **Autosave & safe exits** – progress is always preserved
+- **Color-coded prompts & multiline input** for smooth UX  
 
 ---
 
@@ -33,7 +34,7 @@ pipx install wb-writeupbuilder
 pip install wb-writeupbuilder
 ```
 
-### After installation, you can run:
+Run the tool with:
 
 ```bash
 wb
@@ -45,28 +46,22 @@ wb
 
 ### **1️⃣ Interactive Mode**
 
-Fill in each section via guided prompts.
+Fill in each section step by step:
 
 ```bash
 wb
 ```
 
-You’ll be asked for:
+Prompts will cover:
 
-- Challenge overview (name, platform, category, etc.)
-    
-- Initial info
-    
-- Initial analysis
-    
-- Exploitation steps
-    
-- Flags
-    
-- Takeaways
-    
+* Challenge overview (name, platform, category, etc.)
+* Initial info
+* Initial analysis
+* Exploitation steps
+* Flag(s)
+* Takeaways
 
-The result is saved as:
+Saved as:
 
 ```
 <challenge_name>.md
@@ -74,15 +69,29 @@ The result is saved as:
 
 ---
 
-### **2️⃣ Advanced Template Mode**
+### **2️⃣ Resume Mode**
 
-Generate a **pre-written detailed Markdown template** for manual filling.
+Continue an unfinished write-up:
+
+```bash
+wb --resumefile mywriteup.md
+```
+
+The tool scans your file, detects the last completed section, and resumes from the next one.
+
+---
+
+### **3️⃣ Advanced Template Mode**
+
+Generate a detailed template for manual filling:
 
 ```bash
 wb -t -fn MyWriteup.md
 ```
 
-**Options:**
+---
+
+## 🕹 CLI Options
 
 |Flag|Description|
 |---|---|
@@ -185,6 +194,7 @@ WB-WriteupBuilder/
 
 ---
 
-## 📜 Author
-
-[Ph4nt01](https://github.com/Ph4nt01)
+<p align="center">
+  Made by <a href="https://github.com/Ph4nt01">Ph4nt01</a><br>
+  <em>🚀</em>
+</p>
