@@ -843,7 +843,7 @@ def main():
     p.add_argument(
         "-fn", "--filename",
         metavar="",
-        help="Name of the output file (default: WriteupTemplate.md)"
+        help="Name of the output file"
     )
     p.add_argument(
         "-t", "--template",
