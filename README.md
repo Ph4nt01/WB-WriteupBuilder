@@ -13,6 +13,8 @@ Whether you want to quickly document your hacking process or prepare a professio
 - **Color-coded prompts** for better readability    
 - **Multi-line input support**
 - **Markdown formatting**
+- **Creates the .md file even if the tool was exited in the middle of doing its thing**
+- **--resomefile flag** for contniuing from an incompelete .md file
 
 
 ---
@@ -67,7 +69,7 @@ You’ll be asked for:
 The result is saved as:
 
 ```
-<challenge_name>-<platform>.md
+<challenge_name>.md
 ```
 
 ---
@@ -84,8 +86,9 @@ wb -t -fn MyWriteup.md
 
 |Flag|Description|
 |---|---|
-|`-fn`, `--filename`|Output file name (default: `WriteupTemplate.md`)|
+|`-fn`, `--filename`|Name of the output file|
 |`-t`, `--template`|Use the advanced pre-written template|
+|`-rf`, `--resumefile`|Resume writeup from an existing markdown file|
 
 ---
 
@@ -116,12 +119,12 @@ Below are **two** example sessions: one for the interactive flow and one for the
 ```markdown
 # 📌 Challenge Overview
 
-| 🧩 Platform / Event | picoCTF |
+| 🧩 Platform / Event | picoCTF/Packer |
 | ------------------- | -------- |
 | 📅 Date             | 2025-08-11 |
 | 🔰 Category         | Reverse Engineering |
-| ⭐ Difficulty        | Medium |
-| 🎯 Points           | 200 |
+| ⭐ Difficulty        | easy |
+| 🎯 Points           | 100 |
 
 ---
 
@@ -140,7 +143,9 @@ Steps taken...
 
 ---
 
-# 🚩 Flag -> picoCTF{example_flag}
+
+`🚩 Flag -> picoCTF{example_flag}`
+
 
 ---
 
