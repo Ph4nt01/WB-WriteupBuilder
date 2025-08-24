@@ -219,9 +219,10 @@ def add_section(md, heading, content, inline_template=False):
     if inline_template:
         md += f"```markdown\n\n🚩 Flag -> `{content}`\n\n```\n\n---\n\n"
     else:
-        md += f"{heading}\n\n{content}\n\n---\n\n"
+        # prefix every user input line with "### "
+        formatted_content = "\n".join([f"### {line}" for line in content.splitlines() if line.strip()])
+        md += f"{heading}\n\n{formatted_content}\n\n---\n\n"
     return md
-
 
 # ─────────────────────────────────────────────
 # Resume helpers

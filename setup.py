@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="wb-writeupbuilder",
-    version="1.1.0",
+    version="2.0",
     description="Builds Writup with your input.",
     author="[Ph4nt01]",
     author_email="ph4nt0.84@gmail.com",
