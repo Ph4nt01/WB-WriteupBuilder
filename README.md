@@ -138,17 +138,20 @@ Below are **two** example sessions: one for the interactive flow and one for the
 ---
 
 # 📋 Initial Info:
-Challenge description...
+
+### Challenge description...
 
 ---
 
 # 🔍 Initial Analysis:
-First thoughts...
+
+### First thoughts...
 
 ---
 
 # ⚙️ Exploitation
-Steps taken...
+
+### Steps taken...
 
 ---
 
@@ -159,7 +162,8 @@ Steps taken...
 ---
 
 # 📚 Takeaways
-Things learned...
+
+### Things learned...
 ```
 
 ---
