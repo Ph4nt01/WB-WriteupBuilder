@@ -57,7 +57,7 @@ Prompts will cover:
 * Challenge overview (name, platform, category, etc.)
 * Initial info
 * Initial analysis
-* Exploitation steps
+* Solving steps
 * Flag(s)
 * Takeaways
 
@@ -149,7 +149,7 @@ Below are **two** example sessions: one for the interactive flow and one for the
 
 ---
 
-# ⚙️ Exploitation
+# 🔓 Solving
 
 ### Steps taken...
 

@@ -230,7 +230,7 @@ def add_section(md, heading, content, inline_template=False):
 SECTION_HEADINGS = {
     "initial_info": "# 📋 Initial Info:",
     "initial_analysis": "# 🔍 Initial Analysis:",
-    "exploitation": "# ⚙️ Exploitation",
+    "solving": "# 🔓 Solving",
     
     "flag": "#  🚩 Flag ->",
     "takeaways": "# 📚 Takeaways",
@@ -246,8 +246,8 @@ SECTION_PROMPTS = {
         "heading": "# 🔍 Initial Analysis:",
         "prompt": "What stood out during your first inspection? Mention suspicious URLs, strange files, unusual behavior, etc."
     },
-    "exploitation": {
-        "heading": "# ⚙️ Exploitation",
+    "solving": {
+        "heading": "# 🔓 Solving",
         "prompt": "Describe the steps and tools/scripts used to exploit the challenge. Explain how each tool worked and how it helped you get the flag."
     },
     "flag": {
@@ -358,9 +358,9 @@ def writeup_builder(args):
         _RUNTIME["md"] = md
         _flush_runtime()
 
-        print("\n# ⚙️ Exploitation")
-        exploitation = prompt_multiline(SECTION_PROMPTS["exploitation"]["prompt"])
-        md = add_section(md, SECTION_PROMPTS["exploitation"]["heading"], exploitation)
+        print("\n# 🔓 Solving")
+        solving = prompt_multiline(SECTION_PROMPTS["solving"]["prompt"])
+        md = add_section(md, SECTION_PROMPTS["solving"]["heading"], solving)
         _RUNTIME["md"] = md
         _flush_runtime()
 
@@ -406,7 +406,7 @@ def resume_builder(filename: str):
     sections_order = [
         "initial_info",
         "initial_analysis",
-        "exploitation",
+        "solving",
         "flag",
         "takeaways",
     ]
