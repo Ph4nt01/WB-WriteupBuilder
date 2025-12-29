@@ -7,10 +7,15 @@
 **WB-WriteupBuilder** is a command-line tool for creating clean, organized **CTF write-ups in Markdown** — either interactively or via a ready-to-fill advanced template.
 
 Whether you’re documenting your hacking process during a live competition or preparing a professional post-CTF report, `wb` guides you through each section, **autosaves progress**, and even lets you **resume later**.
+---
+
+## WHY?
+- Why i made this tool?
+> one time when i gone throuh a bunch ctf challenges and wrote write-ups of each, after finishing and looking at the write-ups, let me just say it was like a jump scare scene... cleaning out those write-ups was very painful and time consuming, i tried searching for a tool that fulfils my need but i did not find anything that interests me, so i decided to make my own tool and here we are.
 
 ---
 
-## ✨ Features
+## Features
 
 - **Interactive mode** – guided prompts for each write-up section  
 - **Resume mode (`--resumefile`)** – pick up exactly where you left off, even after closing the terminal  
@@ -20,7 +25,7 @@ Whether you’re documenting your hacking process during a live competition or p
 
 ---
 
-## 📦 Installation
+## Installation
 
 ### Using `pipx` (recommended):
 
@@ -42,9 +47,9 @@ wb
 
 ---
 
-## 🚀 Usage
+## Usage
 
-### **1️⃣ Interactive Mode**
+### **1. Interactive Mode**
 
 Fill in each section step by step:
 
@@ -69,7 +74,7 @@ Saved as:
 
 ---
 
-### **2️⃣ Resume Mode**
+### **2. Resume Mode**
 
 Continue an unfinished write-up:
 
@@ -81,7 +86,7 @@ The tool scans your file, detects the last completed section, and resumes from t
 
 ---
 
-### **3️⃣ Advanced Template Mode**
+### **3. Advanced Template Mode**
 
 Generate a detailed template for manual filling:
 
@@ -91,7 +96,7 @@ wb -t -fn MyWriteup.md
 
 ---
 
-## 🕹 CLI Options
+## CLI Options
 
 |Flag|Description|
 |---|---|
@@ -101,7 +106,7 @@ wb -t -fn MyWriteup.md
 
 ---
 
-## 🧪 Example Run
+## Example Run
 
 Below are **two** example sessions: one for the interactive flow and one for the template flow. This shows the prompts and sample user input.
 
@@ -123,7 +128,7 @@ Below are **two** example sessions: one for the interactive flow and one for the
 
 ---
 
-## 📂 Output Example
+## Output Example
 
 ```markdown
 # 📌 Challenge Overview
@@ -179,7 +184,7 @@ pip install -e .
 ```
 
 ---
-## 📂 Project Structure
+## Project Structure
 
 ```
 WB-WriteupBuilder/
