@@ -10,8 +10,8 @@ Whether you’re documenting your hacking process during a live competition or p
 ---
 
 ## WHY?
-- Why i made this tool?
-> one time when i gone throuh a bunch ctf challenges and wrote write-ups of each, after finishing and looking at the write-ups, let me just say it was like a jump scare scene... cleaning out those write-ups was very painful and time consuming, i tried searching for a tool that fulfils my need but i did not find anything that interests me, so i decided to make my own tool and here we are.
+### Why i made this tool?
+> one time when i gone throuh a bunch ctf challenges and wrote write-ups of each, after finishing and looking at the write-ups, let me just say it was like a jump scare scene... cleaning out those write-ups was very painful and time consuming, i decided to use a tool which is easily usable and structure my write-ups automatically the way i want it to be, so i tried searching for it first but i did not find anything that interests me, then i decided to make my own tool and here we are.
 
 ---
 
